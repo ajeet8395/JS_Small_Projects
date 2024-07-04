@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 97vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Counter</h1>
+        <p id="counter">0</p>
+        <div class="btnscp">
+            <button onclick="decs()">Decrease</button>
+            <button onclick="reset()">RESET</button>
+            <button onclick="incr()">Increase</button>
+        </div>
+    </div>
+
+    <script>
+        let i = 0;
+        let count = document.getElementById('counter')
+
+        const incr = () => {
+            i++;
+            counter.innerHTML = i;
+        }
+
+        const reset = () => {
+            i = 0;
+            counter.innerHTML = i;
+        }
+
+        const decs = () => {
+            if (i > 0) {
+                i--;
+                counter.innerHTML = i;
+            }
+        }
+    </script>
+</body>
+
+</html>

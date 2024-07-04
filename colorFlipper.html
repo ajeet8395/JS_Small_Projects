@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Flipper</title>
+    <link rel="icon" type="image/x-icon" href="/icons8-dessert-48.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #box {
+            border: 1px solid #000;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .animate{
+            transition: all 1s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <!-- <button onclick="randr()">Click Me</button> -->
+    </div>
+
+    <script>
+        const randr = () => {
+            setTimeout(() => {
+                let ran = "#" + Math.floor((Math.random() * 0xaaaaa * 10)).toString(16); // here we can multipy with any hex value so that final value always in a hexa form i.e #0xfffff, #0x1000000
+                console.log(ran);
+
+                document.getElementById("box").style.backgroundColor = ran;
+                document.getElementById("box").classList.add('animate');
+                randr();
+            }, 1500);
+        };
+
+        randr();
+    </script>
+</body>
+
+</html>
