@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e4999925;
+        }
+
+        #Clock {
+            background-color: rgba(165, 162, 158, 0.678);
+            border-radius: 10px;
+            font-size: 6rem;
+            padding: 54px 94px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        #samay {
+            padding-top: 25px;
+            font-size: 9rem;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div id="Clock"></div>
+        <div id="samay"></div>
+    </div>
+
+    <script>
+        function updateTime() {
+            // Get current date
+            var currentDate = new Date();
+
+            // Format date, months, years
+            var date = ('0' + currentDate.getDate()).slice(-2);
+            var months = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+            var years = currentDate.getFullYear();
+
+            // Get time components
+            var hours = ('0' + currentDate.getHours()).slice(-2);
+            var minutes = ('0' + currentDate.getMinutes()).slice(-2);
+            var seconds = ('0' + currentDate.getSeconds()).slice(-2);
+
+            // Update HTML
+            document.getElementById("Clock").innerHTML = date + " / " + months + " / " + years;
+            document.getElementById("samay").innerHTML = hours + ":" + minutes + ":" + seconds; 
+        }
+
+        updateTime();
+
+        setInterval(updateTime, 1000);
+
+        
+    </script>
+</body>
+
+</html>
