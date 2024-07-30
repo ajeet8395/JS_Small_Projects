@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion - JS</title>
+    <style>
+        h1 {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.5rem;
+        }
+
+        .accordion-ag {
+            width: 90%;
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+
+        .accordion-ag-item {
+            background-color: #fff;
+            color: #111;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        .accordion-ag-item-header {
+            padding: 0.5rem 3rem 0.5rem 1rem;
+            min-height: 3.5rem;
+            line-height: 1.25rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .accordion-ag-item-header::after {
+            content: "\002B";
+            font-size: 2rem;
+            position: absolute;
+            right: 1rem;
+        }
+
+        .accordion-ag-item-header.active::after {
+            content: "\2212";
+        }
+
+        .accordion-ag-item-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+
+        .accordion-ag-item-body-content {
+            padding: 1rem;
+            line-height: 1.5rem;
+            border-top: 1px solid;
+            border-image: linear-gradient(to right, transparent, #34495e, transparent) 1;
+        }
+
+        @media(max-width:767px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        /* for grid template card */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-gap: 20px;
+            align-items: stretch;
+        }
+
+        .grid>article {
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        .grid>article img {
+            max-width: 100%;
+        }
+
+        .grid .text {
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>FAQ</h1>
+
+        <div class="accordion-ag">
+            <div class="accordion-ag-item">
+                <div class="accordion-ag-item-header">
+                    What is Web Development?
+                </div>
+                <div class="accordion-ag-item-body">
+                    <div class="accordion-ag-item-body-content">
+                        Web Development broadly refers to the tasks associated with developing functional websites and
+                        applications for the Internet. The web development process includes web design, web content
+                        development, client-side/server-side scripting and network security configuration, among other
+                        tasks.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-ag-item">
+                <div class="accordion-ag-item-header">
+                    What is Web Development?
+                </div>
+                <div class="accordion-ag-item-body">
+                    <div class="accordion-ag-item-body-content">
+                        Web Development broadly refers to the tasks associated with developing functional websites and
+                        applications for the Internet. The web development process includes web design, web content
+                        development, client-side/server-side scripting and network security configuration, among other
+                        tasks.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <main class="grid">
+            <article>
+                <img src="https://picsum.photos/600/400?image=1056" alt="Sample photo">
+                <div class="text">
+                    <h3>Dynamically Procrastinate</h3>
+                    <p>Completely synergize resource taxing relationships via premier niche markets.</p>
+                    <a href="https://codepen.io/collection/XdWJOQ/" class="btn btn-primary btn-block">Read more</a>
+                </div>
+            </article>
+            <article>
+                <img src="https://picsum.photos/600/400?image=1056" alt="Sample photo">
+                <div class="text">
+                    <h3>Dynamically Procrastinate</h3>
+                    <p>Completely synergize resource taxing relationships via premier niche markets.</p>
+                    <a href="https://codepen.io/collection/XdWJOQ/" class="btn btn-primary btn-block">Read more</a>
+                </div>
+            </article>
+            <article>
+                <img src="https://picsum.photos/600/400?image=1056" alt="Sample photo">
+                <div class="text">
+                    <h3>Dynamically Procrastinate</h3>
+                    <p>Completely synergize resource taxing relationships via premier niche markets.</p>
+                    <a href="https://codepen.io/collection/XdWJOQ/" class="btn btn-primary btn-block">Read more</a>
+                </div>
+            </article>
+        </main>
+    </div>
+    <script>
+        const accordionItemHeaders = document.querySelectorAll(".accordion-ag-item-header");
+
+        accordionItemHeaders.forEach(accordionItemHeader => {
+            accordionItemHeader.addEventListener("click", event => {
+                const currentlyActiveAccordionItemHeader = document.querySelector(".accordion-ag-item-header.active");
+                if (currentlyActiveAccordionItemHeader && currentlyActiveAccordionItemHeader !== accordionItemHeader) {
+                    currentlyActiveAccordionItemHeader.classList.toggle("active");
+                    currentlyActiveAccordionItemHeader.nextElementSibling.style.maxHeight = 0;
+                }
+
+                accordionItemHeader.classList.toggle("active");
+                const accordionItemBody = accordionItemHeader.nextElementSibling;
+                if (accordionItemHeader.classList.contains("active")) {
+                    accordionItemBody.style.maxHeight = accordionItemBody.scrollHeight + "px";
+                }
+                else {
+                    accordionItemBody.style.maxHeight = 0;
+                }
+
+            });
+        }); 
+    </script>
+</body>
+
+</html>
