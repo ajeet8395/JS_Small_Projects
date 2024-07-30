@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkAudioPlayPauseTime</title>
+    <style>
+        .audio-main {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .data-display {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .data-display div {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="audio-main">
+        <audio id="audio" controls src="vanishinghope.mp3"></audio>
+        <div class="data-display" id="data-display">
+            <div>Play Count: <span id="play-count">0</span></div>
+            <div>Pause Count: <span id="pause-count">0</span></div>
+            <div>Total Listening Time: <span id="total-listening-time">0</span></div>
+            <div>Listening Segments:</div>
+            <ul id="listening-segments"></ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const audio = document.getElementById('audio');
+            const playCountElement = document.getElementById('play-count');
+            const pauseCountElement = document.getElementById('pause-count');
+            const totalListeningTimeElement = document.getElementById('total-listening-time');
+            const listeningSegmentsElement = document.getElementById('listening-segments');
+
+            let playCount = 0;
+            let pauseCount = 0;
+            let totalTime = 0;
+            let startTime = 0;
+            let listeningSegments = [];
+
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return minutes > 0 ? `${minutes}m ${remainingSeconds}s` : `${remainingSeconds}s`;
+            }
+
+            audio.addEventListener('play', () => {
+                playCount++;
+                startTime = audio.currentTime;
+                playCountElement.textContent = playCount;
+            });
+
+            audio.addEventListener('pause', () => {
+                pauseCount++;
+                const endTime = audio.currentTime;
+                const listeningTime = endTime - startTime;
+                totalTime += listeningTime;
+                listeningSegments.push({ start: startTime, end: endTime });
+                pauseCountElement.textContent = pauseCount;
+                totalListeningTimeElement.textContent = formatTime(totalTime);
+
+                const segmentElement = document.createElement('li');
+                segmentElement.textContent = `Start: ${formatTime(startTime)}, End: ${formatTime(endTime)}, Duration: ${formatTime(listeningTime)}`;
+                listeningSegmentsElement.appendChild(segmentElement);
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                if (audio.currentTime < startTime) {
+                    // User seeked back, start a new segment
+                    startTime = audio.currentTime;
+                }
+            });
+
+            // Optionally, track when the user seeks in the audio
+            audio.addEventListener('seeked', () => {
+                startTime = audio.currentTime;
+            });
+
+            // Optionally, track when the audio ends
+            audio.addEventListener('ended', () => {
+                const endTime = audio.currentTime;
+                const listeningTime = endTime - startTime;
+                totalTime += listeningTime;
+                listeningSegments.push({ start: startTime, end: endTime });
+                totalListeningTimeElement.textContent = formatTime(totalTime);
+
+                const segmentElement = document.createElement('li');
+                segmentElement.textContent = `Start: ${formatTime(startTime)}, End: ${formatTime(endTime)}, Duration: ${formatTime(listeningTime)}`;
+                listeningSegmentsElement.appendChild(segmentElement);
+            });
+        });
+    </script>
+</body>
+
+</html>
